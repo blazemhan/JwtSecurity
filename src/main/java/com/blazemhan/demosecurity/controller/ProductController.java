@@ -17,22 +17,27 @@ public class ProductController {
 
     }
 
+    // create a list of product
     public List<Product> products = new ArrayList<>(
-            List.of(new Product(1,"Iphone 16", 1800.00),
-                    new Product(2,"MacBook Pro", 4000.00),
-                    new Product(3, "Samsung S24", 2100.00 ))
+            List.of(new Product(1, "Iphone 16", 1800.00),
+                    new Product(2, "MacBook Pro", 4000.00),
+                    new Product(3, "Samsung S24", 2100.00))
     );
 
+    // function to return all products
     @GetMapping("/products")
     public List<Product> getProducts() {
+
         return products;
     }
+    // function to add a new product
     @PostMapping("/add")
     public Product addProduct(@RequestBody Product product) {
         products.add(product);
         return product;
 
     }
+
     @GetMapping("/csrf")
     public CsrfToken getCsrfToken(HttpServletRequest request) {
         return (CsrfToken) request.getAttribute("_csrf");

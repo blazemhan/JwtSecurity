@@ -17,18 +17,22 @@ public class AuthController {
     private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    //class constructor with its dependencies injected
     public AuthController(UserRepository userRepository, UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    // registers a new user
     @PostMapping("/register")
     public User register(@RequestBody User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        return  userService.saveUser(user);
+        return userService.saveUser(user);
     }
-@PostMapping("/login")
+
+    // function to sign in a user
+    @PostMapping("/login")
     public String login(@RequestBody User user) {
         return userService.verify(user);
     }
